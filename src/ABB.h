@@ -20,7 +20,7 @@ private:
 	// Métodos
 	NodoABB<K, T>* insertar(NodoABB<K, T> *nodo, T data);
 	void imprimir_in_order(NodoABB<K, T> *nodo);
-	NodoABB<K, T>* buscar(NodoABB<K, T> *nodo, T data);
+	NodoABB<K, T>* buscar(NodoABB<K, T> *nodo, K clave);
 	T obtener_min(NodoABB<K, T> *nodo);
 	T obtener_max(NodoABB<K, T> *nodo);
 	T sucesor(NodoABB<K, T> *nodo);
@@ -36,7 +36,7 @@ public:
 
 	// Agrega un nuevo nodo al ABB actual. Si el ABB esta_vacio
 	// el nodo insertado será la raíz.
-	void insertar(T data);
+	void insertar(K clave);
 
 	// Imprime la informacion guardada en el ABB.
 	// Ordenada de menor a mayor
@@ -44,7 +44,7 @@ public:
 
 	// Busca una clave dada en el ABB Finds a given value in the ABB.
 	// Si la clave existe devuelve TRUE
-	bool buscar(T data);
+	bool buscar(K clave);
 
 	// Busca el valor minimo de clave existente en el ABB.
 	T obtener_min();
@@ -53,13 +53,13 @@ public:
 	T obtener_max();
 
 	// Encuentra el sucesor de una clave dada.
-	T sucesor(T data);
+	T sucesor(K clave);
 
 	// Encuentra el predecesor de una clave dada.
-	T predecesor(T data);
+	T predecesor(K clave);
 
 	// Remueve la data correspondiente a una clave del ABB.
-	void borrar(T data);
+	void borrar(K clave);
 
 	// Devuelve la raiz del ABB.
 	NodoABB<K, T>* get_raiz();
@@ -96,7 +96,7 @@ NodoABB<K, T>* ABB<K, T>::insertar(NodoABB<K, T> *nodo, T data) {
 }
 
 template<class K, class T>
-void ABB<K, T>::insertar(T data) {
+void ABB<K, T>::insertar(K clave) {
 	this->raiz = insertar(this->raiz, data);
 }
 
@@ -115,19 +115,19 @@ void ABB<K, T>::imprimir_in_order() {
 }
 
 template<class K, class T>
-NodoABB<K, T>* ABB<K, T>::buscar(NodoABB<K, T> *nodo, T data) {
-	if (nodo == NULL || nodo->get_data() == data)
+NodoABB<K, T>* ABB<K, T>::buscar(NodoABB<K, T> *nodo, K clave) {
+	if (nodo == NULL || nodo->get_clave() == clave)
 		return nodo;
 
-	if (data > nodo->get_data())
-		return buscar(nodo->get_derecho(), data);
+	if (data > nodo->get_clave())
+		return buscar(nodo->get_derecho(), clave);
 
-	return buscar(nodo->get_izquierdo(), data);
+	return buscar(nodo->get_izquierdo(), clave);
 }
 
 template<class K, class T>
-bool ABB<K, T>::buscar(T data) {
-	NodoABB<K, T> *result = buscar(this->raiz, data);
+bool ABB<K, T>::buscar(K clave) {
+	NodoABB<K, T> *result = buscar(this->raiz, clave);
 
 	return result != NULL;
 }
@@ -180,7 +180,7 @@ T ABB<K, T>::sucesor(NodoABB<K, T> *nodo) {
 }
 
 template<class K, class T>
-T ABB<K, T>::sucesor(T data) {
+T ABB<K, T>::sucesor(K clave) {
 	NodoABB<K, T> *data_nodo = this->buscar(this->raiz, data);
 	// Devuelve la clave. Si no encuentra la clave o en el sucesor, devuelve -1
 	if (data_nodo == NULL)
@@ -208,7 +208,7 @@ T ABB<K, T>::predecesor(NodoABB<K, T> *nodo) {
 }
 
 template<class K, class T>
-T ABB<K, T>::predecesor(T data) {
+T ABB<K, T>::predecesor(K clave) {
 	NodoABB<K, T> *data_nodo = this->buscar(this->raiz, data);
 
 	if (data_nodo == NULL)
@@ -263,7 +263,7 @@ NodoABB<K, T>* ABB<K, T>::borrar(NodoABB<K, T> *nodo, T data) {
 }
 
 template<class K, class T>
-void ABB<K, T>::borrar(T data) {
+void ABB<K, T>::borrar(K clave) {
 	this->raiz = borrar(this->raiz, data);
 }
 

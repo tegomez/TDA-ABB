@@ -18,9 +18,9 @@ private:
 	NodoABB<K, T> *padre;
 
 public:
-	NodoABB(T data);
+	NodoABB(K clave, T data);
 	T get_data();
-	void set_data(T data);
+	void set_data(K clave);
 	K get_clave();
 	void set_clave(K clave);
 	void set_derecho(NodoABB<K, T> *derecho, NodoABB<K, T> *padre);
@@ -37,7 +37,8 @@ public:
 };
 
 template<class K, class T>
-NodoABB<K, T>::NodoABB(T data) {
+NodoABB<K, T>::NodoABB(K clave, T data) {
+    this->clave = clave;
 	this->data = data;
 	this->izquierdo = NULL;
 	this->derecho = NULL;
@@ -50,7 +51,7 @@ T NodoABB<K, T>::get_data() {
 }
 
 template<class K, class T>
-void NodoABB<K, T>::set_data(T data) {
+void NodoABB<K, T>::set_data(K clave) {
 	this->data = data;
 }
 
