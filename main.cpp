@@ -14,9 +14,10 @@ using namespace std;
 int main()
 {
 	ABB<string, int>* bst = new ABB<string, int>();
-	int datos[] = { 23, 12, 31, 3, 7, 15, 29, 88, 53};
-	for(int i=0;i<9;i++)
-		bst->insertar(datos[i]);
+	string personajes[] = {"Goro", "Aang", "Zuko", "Gaara", "Kratos"};
+	int vida[] = { 100, 70, 80, 90, 120};
+	for(int i=0; i<5; i++)
+		bst->insertar(personajes[i], vida[i]);
 
 	bst->imprimir_in_order();
 
