@@ -11,23 +11,23 @@
 #include "./NodoAbb.h"
 #include <iostream>
 
-template <class T>
+template <class K, class T>
 class ABB
 {
 private:
     // attributes
-    NodoABB<T>* raiz;
+    NodoABB<K, T>* raiz;
 
     // methods
-    NodoABB<T>* insertar(NodoABB<T>* nodo, T data);
-    void imprimir_in_order(NodoABB<T> * nodo);
-    NodoABB<T>* buscar(NodoABB<T>* nodo, T data);
-    T obtener_min(NodoABB<T>* nodo);
-    T obtener_max(NodoABB<T>* nodo);
-    T sucesor(NodoABB<T>* nodo);
-    T predecesor(NodoABB<T>* nodo);
-    NodoABB<T>* borrar(NodoABB<T>* nodo, T data);
-    void borrar_todo(NodoABB<T>* nodo);
+    NodoABB<K, T>* insertar(NodoABB<K, T>* nodo, T data);
+    void imprimir_in_order(NodoABB<K, T> * nodo);
+    NodoABB<K, T>* buscar(NodoABB<K, T>* nodo, T data);
+    T obtener_min(NodoABB<K, T>* nodo);
+    T obtener_max(NodoABB<K, T>* nodo);
+    T sucesor(NodoABB<K, T>* nodo);
+    T predecesor(NodoABB<K, T>* nodo);
+    NodoABB<K, T>* borrar(NodoABB<K, T>* nodo, T data);
+    void borrar_todo(NodoABB<K, T>* nodo);
 
 public:
     //methods
@@ -62,25 +62,25 @@ public:
     // Removes a given data from the ABB
     void borrar(T data);
 
-    NodoABB<T>* get_raiz();
+    NodoABB<K, T>* get_raiz();
     bool esta_vacio();
 
     // Deletes all the nodos in the ABB
     void borrar_todo();
-    ~ABB<T>();
+    ~ABB<K, T>();
 
 };
 
-template <class T>
-ABB<T>::ABB() {
+template <class K, class T>
+ABB<K, T>::ABB() {
     this->raiz = NULL;
 }
 
-template <class T>
-NodoABB<T>* ABB<T>::insertar(NodoABB<T>* nodo, T data) {
+template <class K, class T>
+NodoABB<K, T>* ABB<K, T>::insertar(NodoABB<K, T>* nodo, T data) {
 
     if (nodo == NULL) {
-        nodo = new NodoABB<T>(data);
+        nodo = new NodoABB<K, T>(data);
     }
 
     else if (data > nodo->get_data()) {
@@ -93,14 +93,14 @@ NodoABB<T>* ABB<T>::insertar(NodoABB<T>* nodo, T data) {
     return nodo;
 }
 
-template <class T>
-void ABB<T>::insertar(T data)
+template <class K, class T>
+void ABB<K, T>::insertar(T data)
 {
     this->raiz = insertar(this->raiz, data);
 }
 
-template <class T>
-void ABB<T>::imprimir_in_order(NodoABB<T>* nodo)
+template <class K, class T>
+void ABB<K, T>::imprimir_in_order(NodoABB<K, T>* nodo)
 {
     if (nodo != NULL)
     {
@@ -110,14 +110,14 @@ void ABB<T>::imprimir_in_order(NodoABB<T>* nodo)
     }
 }
 
-template <class T>
-void ABB<T>::imprimir_in_order()
+template <class K, class T>
+void ABB<K, T>::imprimir_in_order()
 {
     this->imprimir_in_order(this->raiz);
 }
 
-template <class T>
-NodoABB<T>* ABB<T>::buscar(NodoABB<T>* nodo, T data)
+template <class K, class T>
+NodoABB<K, T>* ABB<K, T>::buscar(NodoABB<K, T>* nodo, T data)
 {
     if (nodo == NULL || nodo->get_data() == data)
         return nodo;
@@ -128,16 +128,16 @@ NodoABB<T>* ABB<T>::buscar(NodoABB<T>* nodo, T data)
     return buscar(nodo->get_izquierdo(), data);
 }
 
-template <class T>
-bool ABB<T>::buscar(T data)
+template <class K, class T>
+bool ABB<K, T>::buscar(T data)
 {
-    NodoABB<T>* result = buscar(this->raiz, data);
+    NodoABB<K, T>* result = buscar(this->raiz, data);
 
     return result != NULL;
 }
 
-template <class T>
-T ABB<T>::obtener_min(NodoABB<T>* nodo)
+template <class K, class T>
+T ABB<K, T>::obtener_min(NodoABB<K, T>* nodo)
 {
     if(nodo == NULL)
         return -1;
@@ -147,14 +147,14 @@ T ABB<T>::obtener_min(NodoABB<T>* nodo)
         return obtener_min(nodo->get_izquierdo());
 }
 
-template <class T>
-T ABB<T>::obtener_min()
+template <class K, class T>
+T ABB<K, T>::obtener_min()
 {
     return obtener_min(this->raiz);
 }
 
-template <class T>
-T ABB<T>::obtener_max(NodoABB<T>* nodo)
+template <class K, class T>
+T ABB<K, T>::obtener_max(NodoABB<K, T>* nodo)
 {
     if(nodo == NULL)
         return -1;
@@ -164,21 +164,21 @@ T ABB<T>::obtener_max(NodoABB<T>* nodo)
         return obtener_max(nodo->get_derecho());
 }
 
-template <class T>
-T ABB<T>::obtener_max()
+template <class K, class T>
+T ABB<K, T>::obtener_max()
 {
     return obtener_max(this->raiz);
 }
 
-template <class T>
-T ABB<T>::sucesor(NodoABB<T>* nodo)
+template <class K, class T>
+T ABB<K, T>::sucesor(NodoABB<K, T>* nodo)
 {
     if (nodo->get_derecho() != NULL)
     {
         return obtener_min(nodo->get_derecho());
     }
-    NodoABB<T>* sucesor = NULL;
-    NodoABB<T>* ancestor = this->raiz;
+    NodoABB<K, T>* sucesor = NULL;
+    NodoABB<K, T>* ancestor = this->raiz;
     while(ancestor != nodo) {
         if(nodo->get_data() < ancestor->get_data()) {
             sucesor = ancestor;
@@ -190,26 +190,26 @@ T ABB<T>::sucesor(NodoABB<T>* nodo)
     return sucesor->get_data();
 }
 
-template <class T>
-T ABB<T>::sucesor(T data)
+template <class K, class T>
+T ABB<K, T>::sucesor(T data)
 {
-    NodoABB<T>* data_nodo = this->buscar(this->raiz, data);
+    NodoABB<K, T>* data_nodo = this->buscar(this->raiz, data);
     // Return the key. If the key is not found or sucesor is not found, return -1
     if(data_nodo == NULL)
         return -1;
     else return sucesor(data_nodo);
 }
 
-template <class T>
-T ABB<T>::predecesor(NodoABB<T> * nodo)
+template <class K, class T>
+T ABB<K, T>::predecesor(NodoABB<K, T> * nodo)
 {
     if (nodo->get_izquierdo() != NULL)
     {
         return obtener_max(nodo->get_izquierdo());
     }
 
-    NodoABB<T>* sucesor = NULL;
-    NodoABB<T>* ancestor = this->raiz;
+    NodoABB<K, T>* sucesor = NULL;
+    NodoABB<K, T>* ancestor = this->raiz;
     while(ancestor != nodo) {
         if(nodo->get_data() > ancestor->get_data()) {
             sucesor = ancestor; // so far this is the deepest nodo for which current nodo is in izquierdo
@@ -221,18 +221,18 @@ T ABB<T>::predecesor(NodoABB<T> * nodo)
     return sucesor->get_data();
 }
 
-template <class T>
-T ABB<T>::predecesor(T data)
+template <class K, class T>
+T ABB<K, T>::predecesor(T data)
 {
-    NodoABB<T> * data_nodo = this->buscar(this->raiz, data);
+    NodoABB<K, T> * data_nodo = this->buscar(this->raiz, data);
 
     if(data_nodo == NULL)
         return -1;
     else return predecesor(data_nodo);
 }
 
-template <class T>
-NodoABB<T> * ABB<T>::borrar(NodoABB<T>* nodo, T data)
+template <class K, class T>
+NodoABB<K, T> * ABB<K, T>::borrar(NodoABB<K, T>* nodo, T data)
 {
     // The given nodo is not found in ABB
     if (nodo == NULL)
@@ -247,7 +247,7 @@ NodoABB<T> * ABB<T>::borrar(NodoABB<T>* nodo, T data)
             // The only child will be connected to the padre's of nodo directly
             nodo->get_derecho()->set_padre(nodo->get_padre());
             // Bypass nodo
-            NodoABB<T>* aux = nodo;
+            NodoABB<K, T>* aux = nodo;
             nodo = nodo->get_derecho();
             delete aux;
         }
@@ -256,7 +256,7 @@ NodoABB<T> * ABB<T>::borrar(NodoABB<T>* nodo, T data)
             // The only child will be connected to the padre's of nodo directly
             nodo->get_izquierdo()->set_padre(nodo->get_padre());
             // Bypass nodo
-            NodoABB<T>* aux = nodo;
+            NodoABB<K, T>* aux = nodo;
             nodo = nodo->get_izquierdo();
             delete aux;
         }
@@ -284,26 +284,26 @@ NodoABB<T> * ABB<T>::borrar(NodoABB<T>* nodo, T data)
     return nodo;
 }
 
-template <class T>
-void ABB<T>::borrar(T data)
+template <class K, class T>
+void ABB<K, T>::borrar(T data)
 {
     this->raiz = borrar(this->raiz, data);
 }
 
-template <class T>
-NodoABB<T>* ABB<T>::get_raiz(){
+template <class K, class T>
+NodoABB<K, T>* ABB<K, T>::get_raiz(){
     return this->raiz;
 }
 
-template <class T>
-bool ABB<T>::esta_vacio()
+template <class K, class T>
+bool ABB<K, T>::esta_vacio()
 {
     return this->raiz == NULL;
 }
 
 
-template <class T>
-void ABB<T>::borrar_todo(NodoABB<T>* nodo)
+template <class K, class T>
+void ABB<K, T>::borrar_todo(NodoABB<K, T>* nodo)
 {
     if(nodo == NULL)
         return;
@@ -312,14 +312,14 @@ void ABB<T>::borrar_todo(NodoABB<T>* nodo)
     delete nodo;
 }
 
-template <class T>
-void ABB<T>::borrar_todo()
+template <class K, class T>
+void ABB<K, T>::borrar_todo()
 {
     this->borrar_todo(this->raiz);
 }
 
-template <class T>
-ABB<T>::~ABB<T>()
+template <class K, class T>
+ABB<K, T>::~ABB<K, T>()
 {
     this->borrar_todo();
 }
