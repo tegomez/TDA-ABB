@@ -104,7 +104,7 @@ template<class K, class T>
 void ABB<K, T>::imprimir_in_order(NodoABB<K, T> *nodo) {
 	if (nodo != NULL) {
 		imprimir_in_order(nodo->get_izquierdo());
-		std::cout << nodo->get_clave() << ' vida: ' << nodo->get_data();
+		std::cout << nodo->get_clave() << " vida: " << nodo->get_data() << "|";
 		imprimir_in_order(nodo->get_derecho());
 	}
 }
@@ -119,7 +119,7 @@ NodoABB<K, T>* ABB<K, T>::buscar(NodoABB<K, T> *nodo, K clave) {
 	if (nodo == NULL || nodo->get_clave() == clave)
 		return nodo;
 
-	if (data > nodo->get_clave())
+	if (clave > nodo->get_clave())
 		return buscar(nodo->get_derecho(), clave);
 
 	return buscar(nodo->get_izquierdo(), clave);
